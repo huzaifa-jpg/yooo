@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For Mum — With Love</title>
+<style>
+  :root{
+    --bg:#0e0e13;
+    --panel:#181922;
+    --accent:#ff5b8a;
+    --accent2:#ffd1dc;
+    --text:#ffffff;
+    --leaf:#2ecc71;
+    --petal:#ff7aa2;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+    background: radial-gradient(1200px 800px at 50% -10%, #1d1f2b 0%, var(--bg) 55%);
+    overflow-x:hidden;
+  }
+  .section{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+  .hint{opacity:.75; font-size:.95rem; margin-top:12px}
+  /* Ribbon */
+  .ribbon-wrap{cursor:pointer; transition:transform .9s cubic-bezier(.2,.8,.2,1); will-change:transform}
+  .ribbon-wrap.open{transform:scale(0) rotate(720deg)}
+  .ribbon{width:min(360px,80vw); filter: drop-shadow(0 8px 20px rgba(255,91,138,.25));}
+  /* Roses */
+  .roses{display:none; opacity:0; gap:24px; margin-top:24px; transition:opacity 1s ease}
+  .rose{width:min(140px,28vw); height:auto; filter: drop-shadow(0 8px 20px rgba(0,0,0,.35));}
+  /* Falling petals */
+  .petal{
+    position:fixed; top:-40px;
+    width:28px; height:28px;
+    pointer-events:none;
+    animation:fall linear forwards;
+    will-change:transform, opacity;
+  }
+  @keyframes fall{
+    0%{ transform:translateY(-40px) rotate(0deg) scale(var(--s,1)); opacity:1 }
+    100%{ transform:translateY(110vh) rotate(520deg) scale(var(--s,1)); opacity:0 }
+  }
+  /* Message */
+  .panel{
+    background: linear-gradient(180deg, rgba(255,91,138,.08), rgba(255,91,138,.02)), var(--panel);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:28px;
+    max-width:800px;
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+  }
+  .title{font-size:2rem; margin:0 0 12px}
+  .msg{font-size:1.15rem; line-height:1.65}
+  .scroll-cue{opacity:.7; margin-top:16px; font-size:.95rem}
+  .heart{display:inline-block; color:var(--accent)}
+  /* Reduce motion preference */
+  @media (prefers-reduced-motion: reduce){
+    .ribbon-wrap{transition:none}
+    .ribbon-wrap.open{transform:none}
+    .petal{animation:none; display:none}
+  }
+</style>
+</head>
+<body>
+
+<section class="section" id="top">
+  <div class="ribbon-wrap" id="ribbonWrap" aria-label="Open the ribbon" role="button" tabindex="0">
+    <!-- Inline SVG bow/ribbon -->
+    <svg class="ribbon" viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#ff8fb2"/>
+          <stop offset="100%" stop-color="#ff467a"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#ff6c98"/>
+          <stop offset="100%" stop-color="#d61e53"/>
+        </linearGradient>
+      </defs>
+      <!-- tails -->
+      <path d="M40 160 L180 130 L200 220 L80 240 Z" fill="url(#g2)"/>
+      <path d="M560 160 L420 130 L400 220 L520 240 Z" fill="url(#g2)"/>
+      <!-- loops -->
+      <ellipse cx="210" cy="120" rx="130" ry="80" fill="url(#g1)"/>
+      <ellipse cx="390" cy="120" rx="130" ry="80" fill="url(#g1)"/>
+      <!-- knot -->
+      <circle cx="300" cy="120" r="46" fill="url(#g2)"/>
+      <!-- ribbon band -->
+      <rect x="40" y="100" width="520" height="40" rx="20" fill="url(#g1)" opacity=".85"/>
+    </svg>
+  </div>
+  <div class="hint">Tap the ribbon to open your surprise ✨</div>
+
+  <div class="roses" id="roses">
+    <!-- simple flower 1 -->
+    <svg class="rose" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="p1" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#ffe3ec"/>
+          <stop offset="100%" stop-color="#ff5b8a"/>
+        </radialGradient>
+      </defs>
+      <!-- petals -->
+      <g transform="translate(80,70)">
+        <ellipse rx="35" ry="50" fill="url(#p1)" transform="rotate(0)"/>
+        <ellipse rx="35" ry="50" fill="url(#p1)" transform="rotate(60)"/>
+        <ellipse rx="35" ry="50" fill="url(#p1)" transform="rotate(120)"/>
+        <ellipse rx="35" ry="50" fill="url(#p1)" transform="rotate(180)"/>
+        <ellipse rx="35" ry="50" fill="url(#p1)" transform="rotate(240)"/>
+        <ellipse rx="35" ry="50" fill="url(#p1)" transform="rotate(300)"/>
+        <circle r="18" fill="#ff2f6b"/>
+      </g>
+      <!-- stem & leaves -->
+      <rect x="78" y="120" width="4" height="80" fill="#2ecc71"/>
+      <ellipse cx="60" cy="150" rx="18" ry="8" fill="#2ecc71" transform="rotate(-25 60 150)"/>
+      <ellipse cx="100" cy="170" rx="18" ry="8" fill="#2ecc71" transform="rotate(25 100 170)"/>
+    </svg>
+
+    <!-- flower 2 -->
+    <svg class="rose" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="p2" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#ffe7f0"/>
+          <stop offset="100%" stop-color="#ff6f9e"/>
+        </radialGradient>
+      </defs>
+      <g transform="translate(80,70)">
+        <ellipse rx="36" ry="48" fill="url(#p2)" transform="rotate(0)"/>
+        <ellipse rx="36" ry="48" fill="url(#p2)" transform="rotate(72)"/>
+        <ellipse rx="36" ry="48" fill="url(#p2)" transform="rotate(144)"/>
+        <ellipse rx="36" ry="48" fill="url(#p2)" transform="rotate(216)"/>
+        <ellipse rx="36" ry="48" fill="url(#p2)" transform="rotate(288)"/>
+        <circle r="16" fill="#ff2f6b"/>
+      </g>
+      <rect x="78" y="120" width="4" height="80" fill="#2ecc71"/>
+      <ellipse cx="60" cy="150" rx="18" ry="8" fill="#2ecc71" transform="rotate(-25 60 150)"/>
+      <ellipse cx="100" cy="170" rx="18" ry="8" fill="#2ecc71" transform="rotate(25 100 170)"/>
+    </svg>
+
+    <!-- flower 3 -->
+    <svg class="rose" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="p3" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#ffe7f0"/>
+          <stop offset="100%" stop-color="#ff89ac"/>
+        </radialGradient>
+      </defs>
+      <g transform="translate(80,70)">
+        <ellipse rx="34" ry="48" fill="url(#p3)" transform="rotate(0)"/>
+        <ellipse rx="34" ry="48" fill="url(#p3)" transform="rotate(60)"/>
+        <ellipse rx="34" ry="48" fill="url(#p3)" transform="rotate(120)"/>
+        <ellipse rx="34" ry="48" fill="url(#p3)" transform="rotate(180)"/>
+        <ellipse rx="34" ry="48" fill="url(#p3)" transform="rotate(240)"/>
+        <ellipse rx="34" ry="48" fill="url(#p3)" transform="rotate(300)"/>
+        <circle r="14" fill="#ff2f6b"/>
+      </g>
+      <rect x="78" y="120" width="4" height="80" fill="#2ecc71"/>
+      <ellipse cx="60" cy="150" rx="18" ry="8" fill="#2ecc71" transform="rotate(-25 60 150)"/>
+      <ellipse cx="100" cy="170" rx="18" ry="8" fill="#2ecc71" transform="rotate(25 100 170)"/>
+    </svg>
+  </div>
+
+  <div class="scroll-cue" id="scrollCue" style="display:none">Scroll down for your note ↓</div>
+</section>
+
+<section class="section">
+  <div class="panel">
+    <h2 class="title">For my Mum, with all my love</h2>
+    <p class="msg">
+      Thank you for being the quiet strength behind every one of my steps. For the meals,
+      the midnight check-ins, the brave face when I was scared, and the way you always
+      made room for my dreams—even when it meant putting yours on hold.
+    </p>
+    <p class="msg">
+      You taught me kindness that isn’t loud, courage that isn’t showy, and love that
+      doesn’t keep score. I notice the little things now—the texts, the reminders,
+      the hugs that last a second longer—and I carry them with me every day.
+    </p>
+    <p class="msg">
+      If I could gift you anything, it would be the way you make me feel: safe, seen,
+      and home. Until then, please take this small promise: I’ll keep trying to be the
+      kind of person you raised me to be. Always.
+      <span class="heart">❤</span>
+    </p>
+  </div>
+</section>
+
+<!-- Template used to create falling petals -->
+<template id="petalTpl">
+  <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="pg" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stop-color="#ffd1dc"/>
+        <stop offset="100%" stop-color="#ff5b8a"/>
+      </linearGradient>
+    </defs>
+    <path d="M14 2 C8 4, 4 10, 8 16 C12 22, 20 22, 22 14 C23 9, 19 4, 14 2 Z"
+          fill="url(#pg)"/>
+  </svg>
+</template>
+
+<script>
+const wrap = document.getElementById('ribbonWrap');
+const roses = document.getElementById('roses');
+const scrollCue = document.getElementById('scrollCue');
+let petalTimer = null;
+
+function createPetal(){
+  const tpl = document.getElementById('petalTpl');
+  const node = tpl.content.firstElementChild.cloneNode(true);
+  const span = document.createElement('span');
+  span.className = 'petal';
+  span.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+  span.style.setProperty('--s', (0.7 + Math.random()*0.9).toFixed(2));
+  const dur = 6 + Math.random()*6;
+  span.style.animationDuration = dur + 's';
+  span.style.animationDelay = (Math.random()*1) + 's';
+  span.appendChild(node);
+  document.body.appendChild(span);
+  setTimeout(()=>span.remove(), (dur+2)*1000);
+}
+
+function startPetals(){
+  if (petalTimer) return;
+  // burst
+  for (let i=0;i<15;i++) setTimeout(createPetal, i*120);
+  // steady stream
+  petalTimer = setInterval(createPetal, 350);
+}
+
+wrap.addEventListener('click', () => {
+  wrap.classList.add('open');
+  setTimeout(()=>{
+    wrap.style.display = 'none';
+    roses.style.display = 'flex';
+    requestAnimationFrame(()=>{
+      roses.style.opacity = '1';
+      startPetals();
+      scrollCue.style.display = 'block';
+    });
+  }, 900);
+});
+
+// keyboard accessibility
+wrap.addEventListener('keydown', (e)=>{
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    wrap.click();
+  }
+});
+
+</script>
+</body>
+</html>
